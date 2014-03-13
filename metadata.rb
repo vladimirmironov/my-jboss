@@ -1,4 +1,4 @@
-maintainer       "EPAM Systems"
+maintainer       "Vladimir Mironov, EPAM Systems"
 maintainer_email "vladimir.i.mironov@gmail.com"
 license          "All rights reserved"
 description      "Installs/Configures my-jboss"

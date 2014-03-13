@@ -2,7 +2,7 @@
 # Cookbook Name:: my-jboss
 # Recipe:: default
 #
-# Copyright 2014, YOUR_COMPANY_NAME
+# Copyright 2014, Vladimir Mironov, EPAM Systems
 #
 # All rights reserved - Do Not Redistribute
 #
@@ -80,10 +80,3 @@ service 'jboss' do
   action [ :enable, :start ]
 end
 
-# add sudoers
-#template "/etc/sudoers.d/jboss" do
-#  source "jboss_sudoers"
-#  mode 0440
-#  owner "root"
-#  group "root"
-#end
