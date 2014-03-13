@@ -9,7 +9,7 @@
 ### END INIT INFO
 
 
-export JAVA_HOME=/usr/java/default
+export JAVA_HOME=/usr/lib/jvm/default-java
 
 #define where jboss is - this is the directory containing directories log, bin, conf etc
 export JBOSS_HOME=${JBOSS_HOME:-"/usr/local/share/jboss"}
@@ -27,18 +27,18 @@ export PATH=$PATH:$JAVAPTH
 [ -r /etc/profile.d/java.sh ] && . /etc/profile.d/java.sh
 [ -r /etc/profile.d/jboss.sh ] && . /etc/profile.d/jboss.sh
 
-
-
-
 case "$1" in
     start)
         echo "Starting JBoss AS 7.1.1"
-        sudo -u appserver sh ${JBOSS_HOME}/bin/standalone.sh -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0
+#        sudo -u appserver sh ${JBOSS_HOME}/bin/standalone.sh -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0
+#updated:
+        start-stop-daemon --start --quiet --background --chuid appserver --exec ${JBOSS_HOME}/bin/standalone.sh -- '-Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0'
+	RETVAL=$?
     ;;
     stop)
         echo "Stopping JBoss AS 7.1.1"
-        sudo -u appserver sh ${JBOSS_HOME}/bin/jboss-admin.sh --connect
-    command=:shutdown
+        sudo -u appserver sh ${JBOSS_HOME}/bin/jboss-cli.sh --connect ":shutdown"
+	RETVAL=$?
     ;;
     *)
         echo "Usage: /etc/init.d/jboss {start|stop}"
@@ -46,4 +46,4 @@ case "$1" in
     ;;
 esac
 
-exit 0
+exit $RETVAL
