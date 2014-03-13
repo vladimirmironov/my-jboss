@@ -33,13 +33,20 @@ directory home do
     action :create
 end
 
-bash 'mk-cache' do
-#    user user
-#    group group
-code <<-EOH
-mkdir -p #{Chef::Config['file_cache_path']}
-EOH
+
+directory "#{Chef::Config['file_cache_path']}" do
+    mode 00755
+    recursive true
+    action :create
 end
+
+#bash 'mk-cache' do
+##    user user
+##    group group
+#code <<-EOH
+#mkdir -p #{Chef::Config['file_cache_path']}
+#EOH
+#end
 
 # Download the archive
 # http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip
